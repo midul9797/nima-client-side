@@ -3,7 +3,7 @@ import { Avatar, Card, CardContent,  Container, Grid, Rating, Typography } from 
 const Review = () => {
     const [reviews, setReviews] = useState([]);
     useEffect(()=> {
-        fetch('http://localhost:4000/reviews')
+        fetch('https://cryptic-plateau-56093.herokuapp.com/reviews')
         .then(res => res.json())
         .then(data => setReviews(data))
     })

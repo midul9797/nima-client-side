@@ -45,7 +45,7 @@ const AddReview = () => {
             image: user.photoURL,
             rating: rating
         }
-        fetch('http://localhost:4000/reviews', {
+        fetch('https://cryptic-plateau-56093.herokuapp.com/reviews', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

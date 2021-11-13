@@ -4,12 +4,12 @@ import React, { useEffect, useState } from 'react';
 const ManageAllToys = () => {
     const [toys, setToys] = useState([]);
     useEffect(()=> {
-        fetch('http://localhost:4000/toys')
+        fetch('https://cryptic-plateau-56093.herokuapp.com/toys')
         .then(res => res.json())
         .then(data => setToys(data))
     })
     const handleDelete = id => {
-        fetch(`http://localhost:4000/toys/${id}`, {
+        fetch(`https://cryptic-plateau-56093.herokuapp.com/toys/${id}`, {
             method: 'DELETE'
         })
         .then(res => res.json())

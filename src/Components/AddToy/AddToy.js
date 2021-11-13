@@ -10,7 +10,7 @@ const AddToy = () => {
         setToyInfo(newInfo);
     }
     const handleAddToy = e => {
-        fetch('http://localhost:4000/toys', {
+        fetch('https://cryptic-plateau-56093.herokuapp.com/toys', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

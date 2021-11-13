@@ -5,7 +5,7 @@ import Toy from '../Toy/Toy';
 const Explore = () => {
     const [toys, setToys] = useState([]);
     useEffect(()=> {
-        fetch('http://localhost:4000/toys')
+        fetch('https://cryptic-plateau-56093.herokuapp.com/toys')
         .then(res => res.json())
         .then(data => setToys(data))
     })
