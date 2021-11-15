@@ -1,2 +1,2 @@
 # Nima
-### Live Site : https://a8-legends.netlify.app/
+### Live Site : https://a12-nima.web.app/
