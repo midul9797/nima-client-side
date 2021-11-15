@@ -6,12 +6,12 @@ const MyOrders = () => {
     const {user} = useAuth();
     const [allOrders, setAllOrders] = useState([]);
     useEffect(()=> {
-        fetch('http://localhost:4000/all_orders')
+        fetch('https://cryptic-plateau-56093.herokuapp.com/all_orders')
         .then(res => res.json())
         .then(data => setAllOrders(data))
     })
     const handleCancel = id => {
-        fetch(`http://localhost:4000/all_orders/${id}`, {
+        fetch(`https://cryptic-plateau-56093.herokuapp.com/all_orders/${id}`, {
             method: 'DELETE'
         })
         .then(res => res.json())

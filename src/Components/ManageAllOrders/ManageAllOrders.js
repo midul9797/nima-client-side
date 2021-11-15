@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 
 
@@ -24,7 +24,8 @@ const ManageAllOrders = () => {
     }
     return (
         <div>
-            <table style={{width: "100%", borderSpacing: "150px 20px"}}>
+            <Typography variant="h3" sx={{ fontWeight: 'bold', textAlign: 'center', mb: 5,color: '#00cba9' }}>Manage All Orders</Typography>
+            <table style={{width: "100%", borderSpacing: "10px 20px"}}>
                 <tr>
                     <th>Name</th>
                     <th>Email</th>
@@ -35,7 +36,7 @@ const ManageAllOrders = () => {
                 </tr>
             {
                 allOrders.map(myOrders => 
-                <tr style={{marginLeft: '10%', borderBottom: '1px solid #ddd'}}>
+                <tr>
                     <td>{myOrders.customer_name}</td>
                     <td>{myOrders.customer_email}</td>
                     <td>{myOrders.address}</td>

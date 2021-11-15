@@ -8,13 +8,17 @@ const useFirebase = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
     const [status, setStatus] = useState('');
+    const [admin, setAdmin] = useState(false);
     const auth = getAuth();
     const logOut = () => {
+        setIsLoading(true)
         signOut(auth)
             .then(() => {
                 setUser({})
             })
+            .finally(()=> setIsLoading(false))
     }
     const handleName = e => {
         setName(e.target.value);
@@ -30,10 +34,26 @@ const useFirebase = () => {
             .then(result => { })
     }
     const loginWithEmail = () => {
-
+       
         return signInWithEmailAndPassword(auth, email, password)
 
     }   
+    const saveUser = (email) => {
+        const user = { email};
+        
+        fetch('https://cryptic-plateau-56093.herokuapp.com/users', {
+            method: 'POST', 
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+    }
+    useEffect(()=> {
+        fetch(`https://cryptic-plateau-56093.herokuapp.com/users/${user.email}`)
+        .then(res => res.json())
+        .then(data => setAdmin(data.admin))
+    }, [user.email])
      useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -42,6 +62,7 @@ const useFirebase = () => {
             else {
                 setUser({});
             }
+            setIsLoading(false)
         });
         return () => unsubscribe;
     }, [])
@@ -61,7 +82,11 @@ const useFirebase = () => {
         userName, 
         auth,
         status, 
-        setStatus
+        setStatus,
+        saveUser,
+        admin, 
+        isLoading,
+        setIsLoading
     }
 };
 

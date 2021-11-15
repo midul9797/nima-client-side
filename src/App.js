@@ -16,6 +16,8 @@ import Purchase from "./Components/Purchase/Purchase";
 import AddToy from "./Components/AddToy/AddToy";
 import MyOrders from "./Components/MyOrders/MyOrders";
 import Pay from "./Components/Pay/Pay";
+import AddReview from "./Components/AddReview/AddReview";
+import Dashboard from "./Components/Dashboard/Dashboard";
 function App() {
   return (
     <AuthProvider>
@@ -43,11 +45,8 @@ function App() {
           <PrivateRoute path="/purchase/:id">
             <Purchase></Purchase>
           </PrivateRoute>
-          <PrivateRoute path="/my_orders">
-            <MyOrders></MyOrders>
-          </PrivateRoute>
-          <PrivateRoute path="/pay">
-            <Pay></Pay>
+          <PrivateRoute path="/dashboard">
+            <Dashboard></Dashboard>
           </PrivateRoute>
         </Switch>
         <Footer></Footer>

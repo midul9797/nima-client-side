@@ -22,24 +22,6 @@ import useAuth from '../../Hook/useAuth';
 import { Button } from '@mui/material';
 const drawerWidth = 240;
 
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-    ({ theme, open }) => ({
-        flexGrow: 1,
-        padding: theme.spacing(3),
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        marginLeft: `-${drawerWidth}px`,
-        ...(open && {
-            transition: theme.transitions.create('margin', {
-                easing: theme.transitions.easing.easeOut,
-                duration: theme.transitions.duration.enteringScreen,
-            }),
-            marginLeft: 0,
-        }),
-    }),
-);
 
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
@@ -58,100 +40,37 @@ const AppBar = styled(MuiAppBar, {
     }),
 }));
 
-const DrawerHeader = styled('div')(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
-}));
+
 
 
 const Navigation = () => {
-    const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
+    
+    
     const {user, logOut} = useAuth();
-    console.log(user)
-    const handleDrawerOpen = () => {
-        setOpen(true);
-    };
-
-    const handleDrawerClose = () => {
-        setOpen(false);
-    };
 return (
-    <Box sx={{ display: 'flex' }}>
-        <CssBaseline />
-        <AppBar position="fixed" open={open}>
-            <Toolbar>
-                <IconButton
-                    color="inherit"
-                    aria-label="open drawer"
-                    onClick={handleDrawerOpen}
-                    edge="start"
-                    sx={{ mr: 2, ...(open && { display: 'none' }) }}
-                >
-                    <MenuIcon />
-                </IconButton>
-                <NavLink to="/home" style={{textDecoration: 'none'}} ><Typography variant="h6" noWrap component="div" sx={{ color: 'white', textAlign: 'right'}}>
+    <Box sx={{mb: '120px'}}>
+        <AppBar position="fixed" >
+            <Box sx={{ display: 'flex', justifyContent: 'space-around',alignItems: 'center', height: '60px', backgroundColor: '#00cba9' }}>
+                <NavLink to="/" style={{textDecoration: 'none'}} ><Typography variant="h6" noWrap component="div" sx={{ color: 'black', fontWeight: 'bold', paddingRight: '50px'}}>
                     Nima
                 </Typography></NavLink>
-                <NavLink to="/explore" style={{textDecoration: 'none', textAlign: 'center'}} ><Typography variant="h6" noWrap component="div" sx={{ color: 'white', float: 'right'}}>
+                <NavLink to="/home" style={{textDecoration: 'none'}} ><Typography variant="h6" noWrap component="div" sx={{ color: 'white', fontWeight: 'bold'}}>
+                    Home
+                </Typography></NavLink>
+                <NavLink to="/explore" style={{textDecoration: 'none'}} ><Typography variant="h6" noWrap component="div" sx={{ color: 'white', fontWeight: 'bold'}}>
                     Explore
                 </Typography></NavLink>
-                { user.email ? <div style={{display: 'flex', justifyContent: 'center', paddingLeft: '100px'}}>
-                <Typography variant="h6">{user.displayName}</Typography>
+            
+                { user.email ? <div style={{display: 'flex', justifyContent: 'center',alignItems: 'center', paddingLeft: '100px'}}>
+                <NavLink to="/dashboard" style={{textDecoration: 'none', paddingRight: '100px'}} ><Typography variant="h6" noWrap component="div" sx={{ color: 'white', fontWeight: 'bold'}}>
+                    Dashboard
+                </Typography></NavLink>
+                <Typography variant="h6" >{user.displayName}</Typography>
                 <Button variant="contained" onClick={logOut} sx={{color: 'white', backgroundColor: '#00604e', fontWeight: 800}}>Log Out</Button>
                 </div>:
                 <NavLink to="/login" style={{textDecoration: 'none', textAlign: 'center'}} ><Button variant="contained"  sx={{color: 'white', backgroundColor: '#00604e', fontWeight: 800}}>Log In</Button></NavLink>}
-            </Toolbar>
+            </Box>
         </AppBar>
-        <Drawer
-            sx={{
-                width: drawerWidth,
-                flexShrink: 0,
-                '& .MuiDrawer-paper': {
-                    width: drawerWidth,
-                    boxSizing: 'border-box',
-                },
-            }}
-            variant="persistent"
-            anchor="left"
-            open={open}
-        >
-            <DrawerHeader>
-                <IconButton onClick={handleDrawerClose}>
-                    {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-                </IconButton>
-            </DrawerHeader>
-            <Divider />
-            <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>
-                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                        </ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
-            </List>
-            <Divider />
-            <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>
-                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                        </ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
-            </List>
-        </Drawer>
-        <Main open={open}>
-            <DrawerHeader />
-
-        </Main>
     </Box>
 )
 }

@@ -8,7 +8,7 @@ const Purchase = () => {
     const { user, status, setStatus } = useAuth();
     const [toys, setToys] = useState([]);
     useEffect(()=> {
-        fetch('http://localhost:4000/toys')
+        fetch('https://cryptic-plateau-56093.herokuapp.com/toys')
         .then(res => res.json())
         .then(data => setToys(data))
     })
@@ -31,7 +31,7 @@ const Purchase = () => {
             customer_name: user.displayName,
             customer_email: user.email
         }
-        fetch('http://localhost:4000/all_orders', {
+        fetch('https://cryptic-plateau-56093.herokuapp.com/all_orders', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

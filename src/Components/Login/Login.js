@@ -6,24 +6,24 @@ import { NavLink } from 'react-router-dom';
 import loginBg from '../../images/login_bg.png';
 
 const Login = () => {
-    const { loginWithEmail, handleEmail, handlePassword, error, setUser, setError, user, isLoading } = useAuth();
+    const { loginWithEmail, handleEmail, handlePassword, error, setUser, setError, user, isLoading, setIsLoading } = useAuth();
     const location = useLocation();
     const history = useHistory();
     const redirect = location.state?.from || '/home';
 
     const logIn = e => {
+        setIsLoading(true);
         e.preventDefault();
         loginWithEmail()
             .then(result => {
                 const user = result.user;
                 setUser(user);
                 setError('');
-                history.push(redirect)
+                history.push(redirect);
+
 
             })
-            .catch(error => {
-                setError(error.message);
-            })
+            .finally(() => setIsLoading(false))
     }
     return (
         <Grid container  spacing={2}>
@@ -41,6 +41,7 @@ const Login = () => {
                         onBlur={handlePassword}
                         id="standard-basic"
                         label="Password"
+                        type="password"
                         variant="standard" />
                     <br />
                     <Button sx={{ width: '50%', mt: 5, ml: 10, fontWeight: 800 , backgroundColor: '#00cba9'}} type="submit" variant="contained">Submit</Button>

@@ -20,7 +20,7 @@ const ManageAllToys = () => {
     }
     return (
         <div>
-            <Typography variant="h3" sx={{ fontWeight: 'bold', textAlign: 'center', mb: 5 }}>Explore <span style={{ color: '#00cba9' }}>Our Toys</span></Typography>
+            <Typography variant="h3" sx={{ fontWeight: 'bold', textAlign: 'center', mb: 5,color: '#00cba9' }}>Manage All Toys</Typography>
             <Container>
                 <Grid container spacing={5}>
                     {
@@ -43,7 +43,7 @@ const ManageAllToys = () => {
                                 <Typography variant="h4">$ {toy.toy_price}</Typography>
                             </CardContent>
                             <CardActions>
-                            <Button onClick={()=> handleDelete(toy._id)} variant="contained" sx={{backgroundColor: 'red', fontWeight: 'bold'}}>Delete</Button>
+                            <Button onClick={()=> handleDelete(toy._id)} variant="contained" sx={{backgroundColor: 'red', fontWeight: 'bold', ml: 8}}>Delete</Button>
                             </CardActions>
                         </Card>
                     </Grid>)

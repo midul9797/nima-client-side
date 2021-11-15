@@ -19,7 +19,7 @@ const Toy = ({ toy }) => {
                         <Typography gutterBottom variant="h4" component="div">
                             {toy_name}
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="body2" color="text.secondary" sx={{height: '180px'}}>
                             {description}
                         </Typography>
                         <Typography variant="h4">$ {toy_price}</Typography>

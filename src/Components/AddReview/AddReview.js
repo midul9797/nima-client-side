@@ -68,7 +68,7 @@ const AddReview = () => {
     return (
         <div>
             <Container sx={{ textAlign: 'center' }}>
-                <h1 style={{ color: '#00cba9', m: 5 }}>Place Your Order</h1>
+                <h1 style={{ color: '#00cba9', m: 5 }}>Give your Review</h1>
                 <form onSubmit={handleReview}>
                     <TextField
                         sx={{ width: '50%', m: 2 }}
@@ -98,13 +98,14 @@ const AddReview = () => {
                         rows={4}
 
                     />
+                    <br/>
                     <TextField
                         id="outlined-select-currency"
                         select
-                        label="Select"
+                        label="Rating"
                         value={rating}
                         onChange={handleChange}
-                        helperText="Please select your currency"
+                        helperText="Please give your rating"
                     >
                         {currencies.map((option) => (
                             <MenuItem key={option.value} value={option.value}>

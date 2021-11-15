@@ -7,23 +7,17 @@ import loginBg from '../../images/login_bg.png';
 import { createUserWithEmailAndPassword } from '@firebase/auth';
 
 const SignUp = () => {
-    const {  handleName,handleEmail, handlePassword, error, userName, password, email, auth, setError, user, isLoading } = useAuth();
+    const {  handleName,handleEmail, handlePassword, error, userName, password, email,name, auth, setError, user, isLoading, saveUser } = useAuth();
     const location = useLocation();
     const history = useHistory();
     const redirect = location.state?.from || '/home';
     const handleSignUp = e => {
         e.preventDefault();
-        if(password.length < 8){
-            setError('Password must be at least 8 characters!!!!!');
-            return;
-        }
-        if(!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/.test(password)){
-            setError('At least one Uppercase, one lowercase, one number, one special character');
-            return;
-        }
         createUserWithEmailAndPassword(auth, email, password)
         .then(() => {
             userName();
+            saveUser(email);
+            console.log(name)
           setError('');
           history.push(redirect)
         })

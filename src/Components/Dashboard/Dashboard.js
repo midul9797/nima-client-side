@@ -6,40 +6,79 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
+
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import Pay from '../Pay/Pay'
+import MyOrders from '../MyOrders/MyOrders'
+import AddReview from '../AddReview/AddReview'
+import AddToy from '../AddToy/AddToy'
+import MakeAdmin from '../MakeAdmin/MakeAdmin'
+import ManageAllToys from '../ManageAllToys/ManageAllToys'
+import ManageAllOrders from '../ManageAllOrders/ManageAllOrders'
+import {
+
+  Switch,
+  Route,
+
+  useRouteMatch,
+  NavLink
+} from "react-router-dom";
+import { Button } from '@mui/material';
+import useAuth from '../../Hook/useAuth';
 
 const drawerWidth = 240;
 
 function Dashboard(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
+  let { path, url } = useRouteMatch();
+  const { logOut, admin } = useAuth();
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
   const drawer = (
-    <div>
+    <div style={{ textAlign: 'center' }}>
       <Toolbar />
       <Divider />
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
+      {
+        admin ? <Box>
+          <NavLink to={`${url}/all_orders`} style={{ textDecoration: 'none' }} ><Typography variant="h6" noWrap component="div" sx={{ color: '#00cba9', fontWeight: 'bold', m: 1 }}>
+            Manage All Orders
+          </Typography></NavLink>
+          <br />
+          <NavLink to={`${url}/all_toys`} style={{ textDecoration: 'none' }} ><Typography variant="h6" noWrap component="div" sx={{ color: '#00cba9', fontWeight: 'bold', m: 1 }}>
+            Manage Toys
+          </Typography></NavLink>
+          <br />
+          <NavLink to={`${url}/make_admin`} style={{ textDecoration: 'none' }} ><Typography variant="h6" noWrap component="div" sx={{ color: '#00cba9', fontWeight: 'bold', m: 1 }}>
+            Make Admin
+          </Typography></NavLink>
+          <br />
+          <NavLink to={`${url}/add_toy`} style={{ textDecoration: 'none' }} ><Typography variant="h6" noWrap component="div" sx={{ color: '#00cba9', fontWeight: 'bold', m: 1 }}>
+            Add Toy
+          </Typography></NavLink>
+          <br />
+        </Box> :
+          <Box>
+            <NavLink to={`${url}/pay`} style={{ textDecoration: 'none' }} ><Typography variant="h6" noWrap component="div" sx={{ color: '#00cba9', fontWeight: 'bold', m: 1 }}>
+              Pay
+            </Typography></NavLink>
+            <br />
+            <NavLink to={`${url}/my_orders`} style={{ textDecoration: 'none' }} ><Typography variant="h6" noWrap component="div" sx={{ color: '#00cba9', fontWeight: 'bold', m: 1 }}>
+              My Orders
+            </Typography></NavLink>
+            <br />
+            <NavLink to={`${url}/review`} style={{ textDecoration: 'none' }} ><Typography variant="h6" noWrap component="div" sx={{ color: '#00cba9', fontWeight: 'bold', m: 1 }}>
+              Review
+            </Typography></NavLink>
+            <br />
+          </Box>
+      }
+      <Button variant='contained' onClick={logOut}>Log Out</Button>
+
 
     </div>
   );
@@ -56,7 +95,7 @@ function Dashboard(props) {
           ml: { sm: `${drawerWidth}px` },
         }}
       >
-        <Toolbar>
+        <Toolbar sx={{ backgroundColor: '#00cba9' }}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -66,9 +105,13 @@ function Dashboard(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
+          <Typography variant="h6" noWrap component="div" sx={{ fontWeight: 'bold' }}>
             Dashboard
           </Typography>
+          <NavLink to="/" style={{textDecoration: 'none', paddingLeft: '350px'}}>         
+           <Typography variant="h6" noWrap component="div" sx={{ color: 'white', fontWeight: 'bold'}}>
+            Home
+          </Typography></NavLink>
         </Toolbar>
       </AppBar>
       <Box
@@ -86,6 +129,7 @@ function Dashboard(props) {
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
+
             display: { xs: 'block', sm: 'none' },
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
@@ -107,8 +151,31 @@ function Dashboard(props) {
         component="main"
         sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
       >
+        <Typography variant="h3" sx={{ fontWeight: 'bold', textAlign: 'center', mb: 5,color: '#00cba9' }}>Welcome to Dashboard</Typography>
         <Toolbar />
-          
+        <Switch>
+          <Route path={`${path}/pay`}>
+            <Pay></Pay>
+          </Route>
+          <Route path={`${path}/my_orders`}>
+            <MyOrders />
+          </Route>
+          <Route path={`${path}/review`}>
+            <AddReview />
+          </Route>
+          <Route path={`${path}/make_admin`}>
+            <MakeAdmin />
+          </Route>
+          <Route path={`${path}/all_orders`}>
+            <ManageAllOrders />
+          </Route>
+          <Route path={`${path}/add_toy`}>
+            <AddToy />
+          </Route>
+          <Route path={`${path}/all_toys`}>
+            <ManageAllToys />
+          </Route>
+        </Switch>
       </Box>
     </Box>
   );
